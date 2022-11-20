@@ -1,0 +1,18 @@
+plugins {
+	id 'java'
+}
+
+group = 'id.my.openapi'
+sourceCompatibility = '17'
+
+wrapper {
+	gradleVersion = "7.5"
+	distributionType = Wrapper.DistributionType.BIN
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+}

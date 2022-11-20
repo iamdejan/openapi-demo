@@ -1,0 +1,16 @@
+plugins {
+    id 'java'
+    id 'idea'
+}
+
+group 'id.my.openapi'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "javax.validation:validation-api:2.0.1.Final"
+    implementation 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+}

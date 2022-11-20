@@ -1,0 +1,4 @@
+rootProject.name = 'demo'
+include 'openapi-demo-springboot'
+include 'openapi-demo-api'
+
