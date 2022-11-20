@@ -31,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
 
-    @Autowired
+    @Autowired @Lazy
     public void configureGlobal(AuthenticationManagerBuilder auth, PasswordEncoder passwordEncoder) throws Exception {
         // configure AuthenticationManager so that it knows from where to load
         // user for matching credentials
@@ -50,12 +50,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    private static final String[] ALLOWED_URLS = new String[]{
+        "/auth/authenticate", "/users", "/healthcheck", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**"
+    };
+
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         // We don't need CSRF for this example
         httpSecurity.csrf().disable()
             // dont authenticate this particular request
-            .authorizeRequests().antMatchers("/auth/authenticate", "/users").permitAll().
+            .authorizeRequests().antMatchers(ALLOWED_URLS).permitAll().
             // all other requests need to be authenticated
                 anyRequest().authenticated().and().
             // make sure we use stateless session; session won't be used to

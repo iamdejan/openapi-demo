@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Lazy;
 
 public class SwaggerConfiguration {
     @Bean @Lazy
-    public OpenAPI springShopOpenAPI() {
+    public OpenAPI openApiDemo() {
         return new OpenAPI()
             .info(new Info().title("OpenAPI Demo")
                 .description("OpenAPI Demo app to prove that we can generate Java class first.")
