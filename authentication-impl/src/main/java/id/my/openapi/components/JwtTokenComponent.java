@@ -10,10 +10,9 @@ import org.springframework.stereotype.Component;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
-import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
-import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -39,7 +38,7 @@ public class JwtTokenComponent implements Serializable {
     }
 
     private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parser().setSigningKey(secret).parseClaimsJwt(token).getBody();
+        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }
 
     private boolean isTokenExpired(String token) {
@@ -48,7 +47,7 @@ public class JwtTokenComponent implements Serializable {
     }
 
     public String generateToken(UserDetails userDetails) {
-        Map<String, Object> claims = Collections.emptyMap();
+        Map<String, Object> claims = new HashMap<>();
         return doGenerateToken(claims, userDetails.getUsername());
     }
 
@@ -57,7 +56,7 @@ public class JwtTokenComponent implements Serializable {
             .setClaims(claims)
             .setSubject(subject)
             .setIssuedAt(new Date())
-            .setExpiration(new Date(Instant.now().plus(5, ChronoUnit.HOURS).getLong(ChronoField.MILLI_OF_SECOND)))
+            .setExpiration(new Date(Instant.now().plus(5, ChronoUnit.HOURS).getEpochSecond() * 1000L))
             .signWith(SignatureAlgorithm.HS512, secret)
             .compact();
     }

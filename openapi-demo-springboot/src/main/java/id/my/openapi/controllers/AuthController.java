@@ -4,6 +4,10 @@ import id.my.openapi.components.JwtTokenComponent;
 import id.my.openapi.requests.JwtRequest;
 import id.my.openapi.responses.JwtResponse;
 import id.my.openapi.services.JwtUserDetailsService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,9 +21,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin
+@SecurityScheme(type = SecuritySchemeType.HTTP, scheme = "bearer", bearerFormat = "JWT", name = "bearer-key")
 public class AuthController {
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -51,5 +59,13 @@ public class AuthController {
         } catch (BadCredentialsException e) {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
+    }
+
+    @Operation(summary = "Validate the token.", security = {
+        @SecurityRequirement(name = "bearer-key")
+    })
+    @PostMapping(value = "/validate", produces = "application/json")
+    public ResponseEntity<Map<String, String>> validate() {
+        return ResponseEntity.ok(Collections.singletonMap("message", "Hello world"));
     }
 }
