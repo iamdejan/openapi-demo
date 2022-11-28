@@ -11,5 +11,3 @@ So far, so good. The annotations can be found at SpringDoc website.
 ### Tricky Part: Security Scheme
 
 As I said, not a lot of tutorials on using this approach, which led me to a difficulty adding security scheme to my application.
-
-
