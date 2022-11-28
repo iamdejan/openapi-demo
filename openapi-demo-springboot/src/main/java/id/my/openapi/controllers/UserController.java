@@ -3,6 +3,7 @@ package id.my.openapi.controllers;
 import id.my.openapi.requests.CreateUserRequest;
 import id.my.openapi.responses.CreateUserResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +21,8 @@ public class UserController {
     @Operation(summary = "Register a user in system.")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Success in registration process."),
-        @ApiResponse(responseCode = "400", description = "Name is not provided."),
-        @ApiResponse(responseCode = "500", description = "We have oopsies."),
+        @ApiResponse(responseCode = "400", description = "Name is not provided.", content = @Content),
+        @ApiResponse(responseCode = "500", description = "We have oopsies.", content = @Content),
     })
     @PostMapping(produces = "application/json", consumes = "application/json")
     public ResponseEntity<CreateUserResponse> create(@RequestBody CreateUserRequest request) {

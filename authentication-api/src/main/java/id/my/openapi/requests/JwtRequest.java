@@ -1,5 +1,6 @@
 package id.my.openapi.requests;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +12,9 @@ import javax.validation.constraints.Size;
 import java.io.Serial;
 import java.io.Serializable;
 
+/**
+ * How do I know the @Schema annotation: <a href="https://stackoverflow.com/a/61075383">here</a>
+ */
 @Data
 @Builder
 @NoArgsConstructor
@@ -21,9 +25,11 @@ public class JwtRequest implements Serializable {
 
     @NotBlank
     @Size(max = 15)
+    @Schema(description = "Dummy username.", example = "openapi-demo")
     private String username;
 
     @NotBlank
     @Size(min = 8)
+    @Schema(description = "Dummy password.", example = "lorem-ipsum")
     private String password;
 }

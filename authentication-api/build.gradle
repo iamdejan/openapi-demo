@@ -12,4 +12,5 @@ dependencies {
     implementation "javax.validation:validation-api:2.0.1.Final"
     implementation 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.13'
 }
