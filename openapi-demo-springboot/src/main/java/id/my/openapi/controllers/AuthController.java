@@ -5,10 +5,9 @@ import id.my.openapi.requests.JwtRequest;
 import id.my.openapi.responses.JwtResponse;
 import id.my.openapi.services.JwtUserDetailsService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -27,15 +26,17 @@ import java.util.Map;
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin
-@SecurityScheme(type = SecuritySchemeType.HTTP, scheme = "bearer", bearerFormat = "JWT", name = "bearer-key")
 public class AuthController {
     @Autowired
+    @Lazy
     private AuthenticationManager authenticationManager;
 
     @Autowired
+    @Lazy
     private JwtTokenComponent jwtTokenComponent;
 
     @Autowired
+    @Lazy
     private JwtUserDetailsService userDetailsService;
 
     @PostMapping(value = "/authenticate", produces = "application/json", consumes = "application/json")
